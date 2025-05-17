@@ -1,88 +1,96 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Inventaire de Vins</title>
-  <link rel="stylesheet" href="styles.css">
-      <link rel="apple-touch-icon" href="Images\Icon.webp" />
-    <!-- 60x60 -->
-    <link rel="apple-touch-icon" sizes="76x76" href="Images\Icon.webp" />
-    <link
-      rel="apple-touch-icon"
-      sizes="120x120"
-      href="Images\Icon.webp"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="Images\Icon.webp"
-    />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Connexion - Épicuvin</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #7B1E1E;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-box {
+      background: #4a0f0f;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      width: 320px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      background: #9e2a2a;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #7b1e1e;
+    }
+    .error {
+      background: #b33a3a;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
-  <div class="background-overlay"></div>
+  <div class="login-box">
+    <h2>Connexion Épicuvin</h2>
 
-  <header>
-    <h1>🍇 Épicuvin - Inventaire de Vins</h1>
-    <p>Gérez votre cave avec élégance et simplicité</p>
-    <button id="logout-btn" style="position: absolute; top: 10px; right: 10px;">🔓 Déconnexion</button>
-  </header>
+    <!-- FORMULAIRE -->
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Nom d'utilisateur" required autofocus />
+      <input type="password" id="password" placeholder="Mot de passe" required />
+      <button type="submit">Se connecter</button>
+    </form>
 
-  <main class="container fade-in">
-    <section class="form-section">
-      <h2>🍷 Ajouter / Modifier un Vin</h2>
-      <form id="wine-form">
-        <input type="hidden" id="wine-id">
-        <input type="text" id="name" placeholder="Nom du vin" required>
-        <input type="text" id="year" placeholder="Année" required>
-        <input type="text" id="quantity" placeholder="Quantité" required>
-        <select id="region" required>
-            <option value="">Région</option>
-            <option value="Bordeaux">Bordeaux</option>
-            <option value="Bourgogne">Bourgogne</option>
-            <option value="Champagne">Champagne</option>
-            <option value="Alsace">Alsace</option>
-            <option value="Vallée du Rhône">Vallée du Rhône</option>
-            <option value="Vallée de la Loire">Vallée de la Loire</option>
-            <option value="Languedoc">Languedoc</option>
-            <option value="Provence">Provence</option>
-            <option value="Sud-Ouest">Sud-Ouest</option>
-            <option value="Jura">Jura</option>
-            <option value="Savoie">Savoie</option>
-            <option value="Corse">Corse</option>
-          </select>
-          
-          <input type="text" id="commentaire" placeholder="Commentaire">
-        <button type="submit">Valider</button>
-      </form>
-    </section>
-    <div id="loader" style="display:none; text-align:center; font-size:18px; margin: 20px 0; color: #7b1e1e;">
-        ⏳ Mise à jour en cours...
-      </div>
-      
-    <section class="list-section">
-      <h2>📋 Liste des Vins</h2>
-      <input type="text" id="search-bar" placeholder="🔍 Rechercher un vin..." style="margin-bottom: 10px;user-select: none; padding: 8px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 5px;">
-      <table>
-        <thead>
-          <tr>
-            <th data-key="nom">Nom ⬍</th>
-            <th data-key="annee">Année ⬍</th>
-            <th data-key="quantite">Quantité ⬍</th>
-            <th data-key="region">Région ⬍</th>
-            <th data-key="commentaire">Commentaire ⬍</th>
-            <th>Actions</th>
-          </tr>
-        </thead>        
-        <tbody id="wine-table-body"></tbody>
-      </table>
-    </section>
-  </main>
+    <div id="errorMsg" class="error" style="display:none;"></div>
+  </div>
 
-  <footer>
-    <p>© 2025 Épicuvin. L’abus d’alcool est dangereux pour la santé.</p>
-  </footer>
-  <div id="toast" class="toast" style="display:none;"></div>
-  <script src="script.js"></script>
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const errorMsg = document.getElementById('errorMsg');
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (username === 'Antoine' && password === 'Wissant62') {
+        sessionStorage.setItem('loggedIn', 'true');
+        window.location.href = 'cave.html';
+      } else {
+        errorMsg.textContent = 'Nom d’utilisateur ou mot de passe incorrect.';
+        errorMsg.style.display = 'block';
+      }
+    });
+
+    // Redirection automatique si déjà connecté
+    if (sessionStorage.getItem('loggedIn') === 'true') {
+      window.location.href = 'cave.html';
+    }
+  </script>
 </body>
 </html>
