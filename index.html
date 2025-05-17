@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Connexion - Épicuvin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
@@ -29,10 +30,11 @@
       padding: 40px;
       border-radius: 15px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-      width: 100%;
-      max-width: 380px;
+      width: 40%;
+      max-width: 500px;
       text-align: center;
       backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
     }
 
     .login-box h2 {
@@ -85,24 +87,37 @@
       display: none;
     }
 
-    /* --- Améliorations spécifiques pour mobile --- */
-    @media (max-width: 480px) {
+    /* 🔍 Tablette (481px à 1024px) */
+    @media (max-width: 1024px) {
       .login-box {
-        max-width: 95%;
-        padding: 50px 25px;
+        width: 75%;
+        padding: 40px 30px;
       }
 
       .login-box h2 {
-        font-size: 24px;
+        font-size: 26px;
       }
 
-      input {
-        font-size: 18px;
-        padding: 16px;
-      }
-
+      input,
       button {
-        font-size: 20px;
+        font-size: 17px;
+      }
+    }
+
+    /* 📱 Mobile (480px et moins) */
+    @media (max-width: 480px) {
+      .login-box {
+        width: 95%;
+        padding: 40px 20px;
+      }
+
+      .login-box h2 {
+        font-size: 22px;
+      }
+
+      input,
+      button {
+        font-size: 18px;
         padding: 16px;
       }
     }
