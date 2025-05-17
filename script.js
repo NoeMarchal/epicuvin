@@ -167,7 +167,7 @@ document.getElementById("search-bar").addEventListener("input", (e) => {
 document.getElementById("logout-btn").addEventListener("click", () => {
   localStorage.clear(); // ou localStorage.removeItem("user");
   sessionStorage.clear(); // ou sessionStorage.removeItem("user");
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 });
 
 loadWines();
